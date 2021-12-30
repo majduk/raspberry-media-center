@@ -45,8 +45,8 @@ Comments
 Following software is uesd:
 - Raspian 10
 - [MPD](https://www.musicpd.org/) for playing internet radio over FM channel. 
-- custom daemon to listen for the FM program change
-- spotifyd
+- custom daemon to handle GPIO
+- [spotifyd](https://spotifyd.github.io/spotifyd/Introduction.html)
 
 ### Playback devices available
 To list use `aplay -l`:
