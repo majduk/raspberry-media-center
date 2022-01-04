@@ -45,5 +45,5 @@ def mpd_channel_handler(evt):
 
 
 if __name__ == '__main__':
-    gpio_handler = GpioHandler(17, mpd_channel_handler)
+    gpio_handler = GpioHandler(27, mpd_channel_handler)
     pause()

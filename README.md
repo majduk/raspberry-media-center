@@ -35,9 +35,9 @@ The RJ45 should be connected as below - consult bus color scheme:
 
 
 Comments
-- AUX commected to HiFiBerry
-- FM connetected to internal Raspberry sound card and headphones output. This results in rather low output level and low quality. Potential improvement is to use pre-amplifier. 
-- D pin is used by the external amplifiers to send PROG signal to change the current playing radio station. This is via voltage divider (10k/18kOhm) to GPIO27
+- FM commected to HiFiBerry
+- AUX connetected to internal Raspberry sound card and headphones output. This results in rather low output level and low quality. Potential improvement is to use pre-amplifier. The B&J system has an unbalanced input and this kind of preamplifier is reqiored. 
+- D pin is used by the external amplifiers to send PROG signal to change the current playing radio station. This is via voltage divider (10k/18kOhm) to GPIO27 to encompass a fact that B&J uses 5V logic and RPi GPIO is 3.3V.
 
 
 ## Software
@@ -74,10 +74,9 @@ Mostly default, except the audio sink to the
 audio_output {
 	type		    "alsa"
 	name		    "My ALSA Device"
-	device		    "hw:0,0"	# optional
+	device		    "hw:1,0"	# optional
 	mixer_type      "hardware"  # optional
 	mixer_device	"default"	# optional
-	mixer_control	"PCM"		# optional
 	mixer_index	    "0"	        # optional
 }
 
