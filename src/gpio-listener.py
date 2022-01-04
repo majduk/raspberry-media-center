@@ -40,8 +40,13 @@ class GpioHandler:
 def mpd_channel_handler(evt):
     print("GPIO Event: {}".format(evt))
     if evt == 5:
-        check_call(['mpc','next'])
-        check_call(['mpc','play'])
+        try:
+            check_call(['mpc','next'])
+            check_call(['mpc','play'])
+        except:
+            check_call(['mpc','load', 'radio.mpl'])
+            check_call(['mpc','play'])
+
 
 
 if __name__ == '__main__':
