@@ -38,7 +38,10 @@ Comments
 - FM commected to HiFiBerry
 - AUX connetected to internal Raspberry sound card and headphones output. This results in rather low output level and low quality. Potential improvement is to use pre-amplifier. The B&J system has an unbalanced input and this kind of preamplifier is reqiored. 
 - D pin is used by the external amplifiers to send PROG signal to change the current playing radio station. This is via voltage divider (10k/18kOhm) to GPIO27 to encompass a fact that B&J uses 5V logic and RPi GPIO is 3.3V.
-
+- Power supply
+  - B&J uses built in 15V power supply from the 8201 unit
+  - RPi uses 5V 2A cell phone charger
+  - GND of both power supplies is connected to provide common reference GND
 
 ## Software
 
