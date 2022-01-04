@@ -37,7 +37,7 @@ The RJ45 should be connected as below - consult bus color scheme:
 Comments
 - AUX commected to HiFiBerry
 - FM connetected to internal Raspberry sound card and headphones output. This results in rather low output level and low quality. Potential improvement is to use pre-amplifier. 
-- D pin is used by the external amplifiers to send PROG signal to change the current playing radio station. This is connected directly to GPIO17
+- D pin is used by the external amplifiers to send PROG signal to change the current playing radio station. This is via voltage divider (10k/18kOhm) to GPIO27
 
 
 ## Software
