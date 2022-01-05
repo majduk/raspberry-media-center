@@ -71,6 +71,16 @@ card 1: sndrpihifiberry [snd_rpi_hifiberry_dacplus], device 0: HiFiBerry DAC+ Pr
 
 ```
 
+Testing audio:
+```
+apt install sox
+
+#left
+AUDIODEV=hw:3 play  -c 2 -n synth  sin 1000 remix 0 1
+#right
+AUDIODEV=hw:3 play  -c 2 -n synth  sin 1000 remix 1 0
+```
+
 ### MPD 
 Mostly default, except the audio sink to the 
 ```
