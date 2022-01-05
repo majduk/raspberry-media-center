@@ -13,6 +13,8 @@ sudo systemctl start mpd
 sudo cp src/rp_crontab /etc/cron.d/rp_crontab
 sudo chown root:root /etc/cron.d/rp_crontab
 sudo systemctl restart cron
+sudo cp src/radio.mpl.m3u /var/lib/mpd/playlists/radio.mpl.m3u
+sudo chown mpd:audio /var/lib/mpd/playlists/radio.mpl.m3u
 
 sudo cp src/gpiod.service /etc/systemd/system/
 sudo chown root:root /etc/systemd/system/gpiod.service
