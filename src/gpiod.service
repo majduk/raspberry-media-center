@@ -8,8 +8,8 @@ User=pi
 Group=pi
 WorkingDirectory=/home/pi/raspberry-media-center/work
 ExecStart=/home/pi/raspberry-media-center/src/gpio-listener.py
-StandardOutput=syslog
-StandardError=syslog
+StandardOutput=journal
+StandardError=journal
 
 [Install]
 WantedBy=multi-user.target
