@@ -7,7 +7,7 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
-ExecStart=/home/pi/wraspberry-media-center/work/spotifyd --no-daemon --config-path /home/pi/.config/spotifyd/spotifyd.conf
+ExecStart=/home/pi/raspberry-media-center/work/spotifyd --no-daemon --config-path /home/pi/.config/spotifyd/spotifyd.conf
 Restart=always
 RestartSec=12
 

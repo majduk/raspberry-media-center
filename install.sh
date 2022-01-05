@@ -2,14 +2,17 @@
 set -x
 [ -d foo ] || mkdir work
 sudo apt update
-sudo apt install -y mpd
+sudo apt install -o Dpkg::Options::="--force-confold" -y mpd
+sudo apt install -y mpc
 sudo cp src/mpd.conf /etc/mpd.conf
 sudo cp src/mpd.service /etc/systemd/system/
 sudo chown root:root /etc/systemd/system/mpd.service
 sudo systemctl daemon-reload
 sudo systemctl enable mpd
 sudo systemctl start mpd
-
+sudo cp src/rp_crontab /etc/cron.d/rp_crontab
+sudo chown root:root /etc/cron.d/rp_crontab
+sudo systemctl restart cron
 
 sudo cp src/gpiod.service /etc/systemd/system/
 sudo chown root:root /etc/systemd/system/gpiod.service
