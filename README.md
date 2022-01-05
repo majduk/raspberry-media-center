@@ -123,4 +123,5 @@ sudo systemctl enable gpiod
 sudo apt install git
 git clone https://github.com/majduk/raspberry-media-center.git
 cd raspberry-media-center
+./install.sh
 ```

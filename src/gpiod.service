@@ -6,8 +6,8 @@ After=syslog.target
 Type=simple
 User=pi
 Group=pi
-WorkingDirectory=/home/pi
-ExecStart=/home/pi/gpio-listener.py
+WorkingDirectory=/home/pi/raspberry-media-center/work
+ExecStart=/home/pi/raspberry-media-center/src/gpio-listener.py
 StandardOutput=syslog
 StandardError=syslog
 
