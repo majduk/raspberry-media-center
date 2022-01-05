@@ -5,6 +5,7 @@ from datetime import datetime
 from subprocess import check_call
 import threading
 import time
+import traceback
 
 gpio_handler_map = {}
 
@@ -24,7 +25,10 @@ class GpioHandler:
         self._handler = handler
     def __thread_handler(self):
         time.sleep(0.1)
-        self._handler(self._counter)
+        try:
+            self._handler(self._counter)
+        except:
+            traceback.print_exc()
         self._counting = False
         _counter = 0
         _thread = None
