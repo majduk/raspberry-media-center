@@ -46,7 +46,7 @@ Comments
 ## Software
 
 Following software is uesd:
-- Raspian 10
+- Raspian 11
 - [MPD](https://www.musicpd.org/) for playing internet radio over FM channel. 
 - custom daemon to handle GPIO
 - [spotifyd](https://spotifyd.github.io/spotifyd/Introduction.html)
@@ -115,4 +115,12 @@ Install:
 cp src/gpio-listener.py ~pi/
 sudo cp src/gpiod.service /etc/systemd/system/gpiod.service
 sudo systemctl enable gpiod
+```
+
+### Installation
+
+```
+sudo apt install git
+git clone https://github.com/majduk/raspberry-media-center.git
+cd raspberry-media-center
 ```
