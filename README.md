@@ -127,6 +127,24 @@ sudo cp src/gpiod.service /etc/systemd/system/gpiod.service
 sudo systemctl enable gpiod
 ```
 
+### Driving projection screen
+
+The setup uses a projection screen with 3 buttons:
+- up
+- stop 
+- down
+
+These are connected to [Whadda WPM400](https://whadda.com/product/4-channel-relay-module-wpm400/) relay module. The module has it's own separate 9V power source. Specially made cable is used to conect relay to the RPi. Connections:
+
+| PIN  | GPIO   | Color   | Relay | Purpose |
+|------|--------|---------|-------|---------|
+| 31   | 6      | Blue    | 1     | UP      |
+| 33   | 13     | Green   | 2     | DOWN    |
+| 37   | 26     | Orange  | 3     | STOP    |
+| 39   | GND    | Black   | GND   | GND     |
+
+
+
 ### Installation
 
 ```
