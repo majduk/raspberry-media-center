@@ -63,3 +63,6 @@ sudo chown root:root /etc/systemd/system/spotifyd.service
 sudo systemctl daemon-reload
 sudo systemctl enable spotifyd
 sudo systemctl start spotifyd
+
+# Installing Pulsemixer
+curl https://raw.githubusercontent.com/GeorgeFilipkin/pulsemixer/master/pulsemixer > pulsemixer && chmod +x ./pulsemixer
