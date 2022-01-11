@@ -70,6 +70,21 @@ card 1: sndrpihifiberry [snd_rpi_hifiberry_dacplus], device 0: HiFiBerry DAC+ Pr
   Subdevice #0: subdevice #0
 
 ```
+After installing Pulse and pairing bluetooth:
+```
+pi@raspberrypi:~ $ sudo pactl list cards short
+0	alsa_card.usb-0d8c_USB_Sound_Device-00	module-alsa-card.c
+1	alsa_card.platform-bcm2835_audio	module-alsa-card.c
+2	alsa_card.platform-soc_sound	module-alsa-card.c
+3	bluez_card.48_27_EA_30_97_C1	module-bluez5-device.c
+
+pi@raspberrypi:~ $ sudo pactl list sinks short
+0	alsa_output.usb-0d8c_USB_Sound_Device-00.analog-stereo	module-alsa-card.c	s16le 2ch 44100Hz	RUNNING
+1	alsa_output.platform-bcm2835_audio.analog-stereo	module-alsa-card.c	s16le 2ch 44100Hz	SUSPENDED
+2	alsa_output.platform-soc_sound.stereo-fallback	module-alsa-card.c	s16le 2ch 44100Hz	SUSPENDED
+
+```
+
 
 Testing audio:
 ```
@@ -143,7 +158,8 @@ These are connected to [Whadda WPM400](https://whadda.com/product/4-channel-rela
 | 37   | 26     | Orange  | 3     | STOP    |
 | 39   | GND    | Black   | GND   | GND     |
 
-
+### Bluetooth
+Bluetooth support based on [rpi-audio-receiver](https://github.com/nicokaiser/rpi-audio-receiver)
 
 ### Installation
 

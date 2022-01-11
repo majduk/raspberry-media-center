@@ -1,0 +1,9 @@
+[Unit]
+Description=Sound Service
+[Install]
+WantedBy=multi-user.target
+[Service]
+Type=notify
+PrivateTmp=true
+ExecStart=/usr/bin/pulseaudio --daemonize=no --system --disallow-exit --disable-shm --exit-idle-time=-1 --log-target=journal
+Restart=on-failure
