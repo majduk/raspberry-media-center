@@ -8,6 +8,7 @@ Media center is based on:
 - HiFiBerry DAC2 Pro - [documentation](https://www.hifiberry.com/shop/boards/hifiberry-dac2-pro/)
 - 3x Busch und Jaeger 8212u and 1x8211u amplifiers - [documentation](https://library.e.abb.com/public/dec74a007bb7476d8d56ac41941bf79a/8211_ABB_OA_2012-12-17_PL_R01.pdf)
 - Case from Busch und Jaeger 8201 Zentralle
+- USB 7.1 soundcard (noname) - [documentation](https://botland.com.pl/urzadzania-usb-pozostale/6706-zewnetrzna-karta-dzwiekowa-muzyczna-71-channel-usb-raspberry-pi-3-2-b-5907621811334.html?cd=1564049911&ad=58987843373&kd=&gclid=CjwKCAiAlfqOBhAeEiwAYi43F1aUwurMMdnk5BQwNF-A90l4fBGRPAa3wOJ4Y0608h8fgp_n7vqwYxoCCDEQAvD_BwE)
 
 ![layout](images/layout.jpg)
 
@@ -52,6 +53,9 @@ Following software is uesd:
 - [spotifyd](https://spotifyd.github.io/spotifyd/Introduction.html)
 
 ### Playback devices available
+
+I'm using [pulsemixer](https://raw.githubusercontent.com/GeorgeFilipkin/pulsemixer/master/pulsemixer) script
+
 To list use `aplay -l`:
 ```
 **** List of PLAYBACK Hardware Devices ****
@@ -84,8 +88,6 @@ pi@raspberrypi:~ $ sudo pactl list sinks short
 2	alsa_output.platform-soc_sound.stereo-fallback	module-alsa-card.c	s16le 2ch 44100Hz	SUSPENDED
 
 ```
-
-
 Testing audio:
 ```
 apt install sox
@@ -95,20 +97,15 @@ AUDIODEV=hw:3 play  -c 2 -n synth  sin 1000 remix 0 1
 #right
 AUDIODEV=hw:3 play  -c 2 -n synth  sin 1000 remix 1 0
 ```
+For 5.1 testing it's better to use speaker-test:
+```
+speaker-test -c 6  -d alsa_output.usb-0d8c_USB_Sound_Device-00.analog-surround-51 -s 6 -r 44100
+```
+
+
 
 ### MPD 
-Mostly default, except the audio sink to the 
-```
-audio_output {
-	type		    "alsa"
-	name		    "My ALSA Device"
-	device		    "hw:1,0"	# optional
-	mixer_type      "hardware"  # optional
-	mixer_device	"default"	# optional
-	mixer_index	    "0"	        # optional
-}
-
-```
+Mostly default, except the audio outputs, for reference see [mpd.conf](src/mpd.conf)
 
 Listing playlists
 ```
@@ -160,6 +157,13 @@ These are connected to [Whadda WPM400](https://whadda.com/product/4-channel-rela
 
 ### Bluetooth
 Bluetooth support based on [rpi-audio-receiver](https://github.com/nicokaiser/rpi-audio-receiver)
+
+### 5.1 Audio
+Separate [USB sound card](https://botland.com.pl/urzadzania-usb-pozostale/6706-zewnetrzna-karta-dzwiekowa-muzyczna-71-channel-usb-raspberry-pi-3-2-b-5907621811334.html?cd=1564049911&ad=58987843373&kd=&gclid=CjwKCAiAlfqOBhAeEiwAYi43F1aUwurMMdnk5BQwNF-A90l4fBGRPAa3wOJ4Y0608h8fgp_n7vqwYxoCCDEQAvD_BwE) is used to provide 5.1 audio. This is a rather cheap one but the quality is fair.
+
+It's based on CMedia chip and has 16 bit DAC. Enough output power to drive 3Ohm speakers, just not too loud.
+
+For profile selection look at [daemon.pa](src/pulse/daemon.pa).
 
 ### Installation
 
