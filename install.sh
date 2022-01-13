@@ -14,6 +14,10 @@ sudo cp src/pulse/default.pa /etc/pulse/default.pa
 sudo cp src/pulse/system.pa /etc/pulse/system.pa
 sudo cp src/pulseaudio.service /etc/systemd/system/pulseaudio.service
 sudo chown root:root /etc/systemd/system/pulseaudio.service
+sudo mv /etc/alsa/conf.d/50-pulseaudio.conf{,.orig}
+sudo mv /etc/alsa/conf.d/99-pulse.conf{,.orig}
+sudo cp src/99-pulseaudio.conf /etc/alsa/conf.d/99-pulseaudio.conf
+sudo chown root:root /etc/alsa/conf.d/99-pulseaudio.conf
 sudo systemctl enable --now pulseaudio.service
 sudo systemctl --global mask pulseaudio.socket
 
@@ -58,6 +62,7 @@ tar -xzvf work/spotifyd-linux-armv6-slim.tar.gz work/
 chmod 755 work/spotifyd
 mkdir -p /home/pi/.config/spotifyd
 touch /home/pi/.config/spotifyd/spotifyd.conf
+cp src/spotifyd.conf /home/pi/.config/spotifyd/spotifyd.conf
 sudo cp src/spotifyd.service /etc/systemd/system/
 sudo chown root:root /etc/systemd/system/spotifyd.service
 sudo systemctl daemon-reload

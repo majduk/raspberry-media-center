@@ -12,7 +12,50 @@ Media center is based on:
 
 ![layout](images/layout.jpg)
 
-### Bus connectivity
+### Power sources
+
+Due to different voltage expectations I had to use 3 different power sources with common ground.
+
+```
+                                    +-------------+
+                                    |             |
+                                    |   Power     |
++------------------------------+    |   Supply    |
+|                              |    |    9V       |
+|    Projector Switch          |<---+    500mA    +------+
+|                              |    |             |      |
+|                              |    |             |      |
++------------------------------+    +-------------+      |
+                                                         |
++------------------------------+    +-------------+      |
+|                              |    |             |      |
+|       B&J Bus                |    |   B&J       |      |
+|                              |<---+   Internal  +------+
+|                              |    |    15V      |      |
++------------------------------+    |             |      |
+                                    |             |      |
++-----------+   +--------------+    |             |      |
+|           |   |  G           |    +-------------+      |
+|           |   |  P           |                         |
+| HiFiBerry |<--+- I           |    +-------------+      |
+| DAC2 PRO  |   |  O           |    |             |      |
+|           |   |              |    |   MI USB C  |      |
+|           |   |              |    |   Power     |      |
+|           |   |              |<---+   5V 2A     +------+
++-----------+   |  RaspberryPi |    |             |      |
+                |              |    |             |      |
++------------+  |              |    |             |      |
+|            |  |              |    +-------------+      |
+|            |  |              |                         |
+|  Surround  |  |  U           |                         |
+|  USB       |<-+--S           |                       -----
+|  Sound     |  |  B           |                        ---
+|  Card      |  |              |                         -
+|            |  |              |
++------------+  +--------------+
+```
+
+### Multiroom bus connectivity
 
 The system connectivity:
 ![system](images/system.png)
@@ -51,8 +94,9 @@ Following software is uesd:
 - [MPD](https://www.musicpd.org/) for playing internet radio over FM channel. 
 - custom daemon to handle GPIO
 - [spotifyd](https://spotifyd.github.io/spotifyd/Introduction.html)
+- PulseAudio. While this is not the default for desktopless RPi, it provides nice Bluetooth support and extra flexibility.
 
-### Playback devices available
+### Tools
 
 I'm using [pulsemixer](https://raw.githubusercontent.com/GeorgeFilipkin/pulsemixer/master/pulsemixer) script
 
@@ -128,6 +172,10 @@ Changing radio station (to make sure the list is looped):
 mpc next;mpc play
 ```
 
+### Spotifyd
+
+The Spotify Connect support is provided by [spotifyd](https://spotifyd.github.io/spotifyd/Introduction.html). It uses fairly default config and small Armv6 build.
+
 ### GPIO daemon
 - consider using [pigpio](https://abyz.me.uk/rpi/pigpio/pigpiod.html)
 
@@ -139,7 +187,7 @@ sudo cp src/gpiod.service /etc/systemd/system/gpiod.service
 sudo systemctl enable gpiod
 ```
 
-### Driving projection screen
+### Projection screen driver
 
 The setup uses a projection screen with 3 buttons:
 - up
@@ -155,17 +203,17 @@ These are connected to [Whadda WPM400](https://whadda.com/product/4-channel-rela
 | 37   | 26     | Orange  | 3     | STOP    |
 | 39   | GND    | Black   | GND   | GND     |
 
-### Bluetooth
+### Bluetootha support
 Bluetooth support based on [rpi-audio-receiver](https://github.com/nicokaiser/rpi-audio-receiver)
 
-### 5.1 Audio
+### 5.1 Audio support
 Separate [USB sound card](https://botland.com.pl/urzadzania-usb-pozostale/6706-zewnetrzna-karta-dzwiekowa-muzyczna-71-channel-usb-raspberry-pi-3-2-b-5907621811334.html?cd=1564049911&ad=58987843373&kd=&gclid=CjwKCAiAlfqOBhAeEiwAYi43F1aUwurMMdnk5BQwNF-A90l4fBGRPAa3wOJ4Y0608h8fgp_n7vqwYxoCCDEQAvD_BwE) is used to provide 5.1 audio. This is a rather cheap one but the quality is fair.
 
 It's based on CMedia chip and has 16 bit DAC. Enough output power to drive 3Ohm speakers, just not too loud.
 
 For profile selection look at [daemon.pa](src/pulse/daemon.pa).
 
-### Installation
+## Installation
 
 ```
 sudo apt install git
@@ -173,3 +221,7 @@ git clone https://github.com/majduk/raspberry-media-center.git
 cd raspberry-media-center
 ./install.sh
 ```
+
+## References
+
+- [PulseAudio under the hood](https://gavv.github.io/articles/pulseaudio-under-the-hood/)
