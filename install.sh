@@ -71,3 +71,18 @@ sudo systemctl start spotifyd
 
 # Installing Pulsemixer
 curl https://raw.githubusercontent.com/GeorgeFilipkin/pulsemixer/master/pulsemixer > pulsemixer && chmod +x ./pulsemixer
+
+# Installing Docker
+curl -sSL https://get.docker.com | sh
+sudo usermod -aG docker ${USER}
+sudo systemctl enable docker
+
+# Instal HomeAssistant
+docker run -d \
+  --name homeassistant \
+  --privileged \
+  --restart=unless-stopped \
+  -e TZ=Europe/Warsaw \
+  -v /home/pi/raspberry-media-center/homeassistant:/config \
+  --network=host \
+  ghcr.io/home-assistant/home-assistant:stable

@@ -95,6 +95,7 @@ Following software is uesd:
 - custom daemon to handle GPIO
 - [spotifyd](https://spotifyd.github.io/spotifyd/Introduction.html)
 - PulseAudio. While this is not the default for desktopless RPi, it provides nice Bluetooth support and extra flexibility.
+- [HomeAssistant](https://www.home-assistant.io/) running in docker container.
 
 ### Tools
 
@@ -212,6 +213,19 @@ Separate [USB sound card](https://botland.com.pl/urzadzania-usb-pozostale/6706-z
 It's based on CMedia chip and has 16 bit DAC. Enough output power to drive 3Ohm speakers, just not too loud.
 
 For profile selection look at [daemon.pa](src/pulse/daemon.pa).
+
+### Home Assistant
+Home Assistant is installed as a [docker container](https://www.home-assistant.io/installation/raspberrypi#install-home-assistant-container):
+```
+docker run -d \
+  --name homeassistant \
+  --privileged \
+  --restart=unless-stopped \
+  -e TZ=Europe/Warsaw \
+  -v /home/pi/raspberry-media-center/homeassistant:/config \
+  --network=host \
+  ghcr.io/home-assistant/home-assistant:stable
+```
 
 ## Installation
 
