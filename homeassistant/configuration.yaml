@@ -3,10 +3,19 @@
 default_config:
 
 # Text to speech
-tts:
-  - platform: google_translate
+#tts:
+#  - platform: google_translate
 
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
+spotify:
+  client_id: !secret spotify_client_id
+  client_secret: !secret spotify_client_secret
+switch:
+  - platform: mpd_outputs
+    host: raspberrypi.home
+media_player:
+  - platform: mpd
+    host: raspberrypi.home
