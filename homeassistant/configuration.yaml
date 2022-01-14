@@ -18,4 +18,5 @@ switch:
     host: raspberrypi.home
 media_player:
   - platform: mpd
+    name: Radio
     host: raspberrypi.home
