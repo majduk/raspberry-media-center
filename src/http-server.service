@@ -8,6 +8,8 @@ ExecStart=/usr/bin/python3 server.py
 Restart=always
 # Restart service after 10 seconds if python service crashes
 RestartSec=10
+StandardOutput=journal
+StandardError=journal
  
 [Install]
 WantedBy=multi-user.target
