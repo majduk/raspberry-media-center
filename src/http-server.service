@@ -1,0 +1,13 @@
+[Unit]
+Description=HTTP Server
+ 
+[Service]
+Type=simple
+WorkingDirectory=/home/pi/raspberry-media-center/work
+ExecStart=/usr/bin/python3 server.py
+Restart=always
+# Restart service after 10 seconds if python service crashes
+RestartSec=10
+ 
+[Install]
+WantedBy=multi-user.target

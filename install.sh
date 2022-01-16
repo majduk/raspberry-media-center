@@ -72,6 +72,13 @@ sudo systemctl start spotifyd
 # Installing Pulsemixer
 curl https://raw.githubusercontent.com/GeorgeFilipkin/pulsemixer/master/pulsemixer > pulsemixer && chmod +x ./pulsemixer
 
+# Minimalistic http server
+sudo cp src/http-server.service /etc/systemd/system/
+sudo chown root:root /etc/systemd/system/http-server.service
+sudo systemctl daemon-reload
+sudo systemctl enable http-server
+sudo systemctl start http-server
+
 # Installing Docker
 curl -sSL https://get.docker.com | sh
 sudo usermod -aG docker ${USER}
