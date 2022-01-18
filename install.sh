@@ -75,6 +75,8 @@ curl https://raw.githubusercontent.com/GeorgeFilipkin/pulsemixer/master/pulsemix
 # Minimalistic http server
 sudo cp src/http-server.service /etc/systemd/system/
 sudo chown root:root /etc/systemd/system/http-server.service
+cp src/projector.py work/
+cp src/server.py work/
 sudo systemctl daemon-reload
 sudo systemctl enable http-server
 sudo systemctl start http-server
