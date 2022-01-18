@@ -16,6 +16,12 @@ spotify:
 switch:
   - platform: mpd_outputs
     host: raspberrypi.home
+  - platform: http_switch
+    host: raspberrypi.home
+    resources:
+      projector:
+        turn_on: unfold
+        turn_off: fold
 media_player:
   - platform: mpd
     name: Radio
