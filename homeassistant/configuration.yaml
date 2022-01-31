@@ -6,9 +6,17 @@ default_config:
 #tts:
 #  - platform: google_translate
 logger:
-  default: info
+  default: warning
   logs:
+    homeassistant.components.websocket_api.http.connection: warning
     custom_components.http_switch: debug
+    homeassistant.components.hdmi_cec.switch: debug
+    homeassistant.components.hdmi_cec.media_player: debug
+    homeassistant.components.hdmi_cec: debug
+    homeassistant.components: debug
+    pycec: debug
+    pycec.cec: debug
+
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
@@ -29,3 +37,10 @@ media_player:
   - platform: mpd
     name: Radio
     host: raspberrypi.home
+hdmi_cec:
+  types:
+    hdmi_cec.hdmi_5: media_player 
+  devices:
+    0: TV
+    5: Receiver
+    8: BD-Theater

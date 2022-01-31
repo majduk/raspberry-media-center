@@ -136,6 +136,6 @@ load-module module-filter-apply
 set-default-sink 1
 #set-default-source input
 
-.ifexists alsa_card.usb-0d8c_USB_Sound_Device-00
-set-card-profile alsa_card.usb-0d8c_USB_Sound_Device-00 output:analog-surround-51+input:iec958-stereo
-.endif
+#.ifexists alsa_card.usb-0d8c_USB_Sound_Device-00
+#set-card-profile alsa_card.usb-0d8c_USB_Sound_Device-00 output:iec958-ac3-surround-51
+#.endif

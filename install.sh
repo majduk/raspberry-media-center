@@ -3,7 +3,8 @@ set -x
 
 [ -d foo ] || mkdir work
 sudo apt update
-
+sudo apt install -y python3-pip
+sudo apt install -y bridge-utils
 # Installing PulseAudio
 sudo apt install -y --no-install-recommends pulseaudio
 sudo usermod -a -G pulse-access root
@@ -20,6 +21,7 @@ sudo cp src/99-pulseaudio.conf /etc/alsa/conf.d/99-pulseaudio.conf
 sudo chown root:root /etc/alsa/conf.d/99-pulseaudio.conf
 sudo systemctl enable --now pulseaudio.service
 sudo systemctl --global mask pulseaudio.socket
+sudo pip3 install pulsectl
 
 # Setting up bluetooth
 sudo apt install -y --no-install-recommends bluez-tools pulseaudio-module-bluetooth
