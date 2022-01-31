@@ -127,7 +127,7 @@ diff_config () {
 
 push_config () {
   for f in $( find etc/ -type f ); do
-    cp ${f} /${f}
+    sudo cp ${f} /${f}
   done
 }
 
