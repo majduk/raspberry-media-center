@@ -9,6 +9,8 @@ install_base () {
   curl -sSL https://get.docker.com | sh
   sudo usermod -aG docker ${USER}
   sudo systemctl enable docker
+  sudo systemctl disable dhcpcd.service
+  sudo systemctl disable avahi-daemon.service
 }
 
 configure_network () {
