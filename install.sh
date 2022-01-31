@@ -11,6 +11,12 @@ install_base () {
   sudo systemctl enable docker
 }
 
+configure_network () {
+  sudo cp etc/network/interfaces.d/00-br0 /etc/network/interfaces.d/00-br0
+  sudo chown root:root /etc/network/interfaces.d/00-br0
+  sudo service networking restart
+}
+
 install_pulseaudio () {
   sudo apt install -y --no-install-recommends pulseaudio
   sudo usermod -a -G pulse-access root
@@ -128,6 +134,7 @@ diff_config () {
 push_config () {
   for f in $( find etc/ -type f ); do
     sudo cp ${f} /${f}
+    sudo chown root:root /${f}
   done
 }
 
@@ -145,6 +152,8 @@ while getopts ":hao:" arg; do
   case ${arg} in
     a)
       install_base
+      configure_network
+      sleep 60
       install_pulseaudio
       install_bluetooth
       install_mpd
