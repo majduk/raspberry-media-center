@@ -1,0 +1,36 @@
+# interfaces(5) file used by ifup(8) and ifdown(8)
+
+# Please note that this file is written to be used with dhcpcd
+# For static IP, consult /etc/dhcpcd.conf and 'man dhcpcd.conf'
+
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet manual
+
+auto br0
+iface br0 inet dhcp
+  pre-up ip netns add sp1
+  pre-up ip netns add sp2
+  pre-up ip link add veth0 type veth peer name veth10
+  pre-up ip link add veth1 type veth peer name veth11
+  pre-up ip link set veth10 netns sp1
+  pre-up ip link set veth11 netns sp2
+  pre-up brctl addbr br0 && brctl addif br0 eth0
+  post-up brctl addif br0 veth0
+  post-up brctl addif br0 veth1
+  post-up ip link set dev veth0 up
+  post-up ip link set dev veth1 up
+  post-up ip netns exec sp1 ip link set dev veth10 up
+  post-up ip netns exec sp2 ip link set dev veth11 up
+  post-up ip netns exec sp1 dhclient -4 -v  -i -pf /run/dhclient.veth10.pid -lf /var/lib/dhcp/dhclient.veth10.leases veth10
+  post-up ip netns exec sp2 dhclient -4 -v  -i -pf /run/dhclient.veth11.pid -lf /var/lib/dhcp/dhclient.veth11.leases veth11
+  pre-down brctl delif br0 veth0
+  pre-down brctl delif br0 veth1
+  pre-down brctl delif br0 eth0
+  post-down brctl delbr br0
+  post-down ip netns del sp1
+  post-down ip netns del sp2
+  post-down ip link del veth0
+  post-down ip link del veth1
