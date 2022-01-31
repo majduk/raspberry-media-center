@@ -7,10 +7,17 @@ install_base () {
   sudo apt install -y python3-pip
   sudo apt install -y bridge-utils
   curl -sSL https://get.docker.com | sh
+  configure_docker
   sudo usermod -aG docker ${USER}
   sudo systemctl enable docker
   sudo systemctl disable dhcpcd.service
   sudo systemctl disable avahi-daemon.service
+}
+
+configure_docker () {
+  sudo cp etc/docker/daemon.json /etc/docker/daemon.json
+  sudo chown root:root /etc/docker/daemon.json
+  sudo service docker restart
 }
 
 configure_network () {
