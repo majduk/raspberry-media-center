@@ -127,7 +127,7 @@ install_homeassistant () {
 
 diff_config () {
   for f in $( find etc/ -type f ); do
-    diff -q ${f} /${f}
+    sudo diff -q ${f} /${f}
   done
 }
 
@@ -140,7 +140,8 @@ push_config () {
 
 pull_config () {
   for f in $( find etc/ -type f ); do
-    cp /${f} ${f}
+    sudo cp /${f} ${f}
+    sudo chown pi:pi ${f}
   done
 }
 
