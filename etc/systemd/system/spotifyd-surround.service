@@ -1,0 +1,15 @@
+[Unit]
+Description=A spotify playing daemon
+Documentation=https://github.com/Spotifyd/spotifyd
+Wants=sound.target
+After=sound.target
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+ExecStart=ip netns exec sp2 /home/pi/raspberry-media-center/work/spotifyd --no-daemon --config-path /home/pi/.config/spotifyd/spotifyd-surround.conf
+Restart=always
+RestartSec=12
+
+[Install]
+WantedBy=default.target

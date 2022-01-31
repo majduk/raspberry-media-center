@@ -102,15 +102,23 @@ install_spotifyd () {
 
 configure_spotifyd () {
   mkdir -p /home/pi/.config/spotifyd
-  if [ ! -f /home/pi/.config/spotifyd/spotifyd.conf ]; then
-    cp src/spotifyd.conf /home/pi/.config/spotifyd/spotifyd.conf
-    echo "WARNING: Udate username and password in /home/pi/.config/spotifyd/spotifyd.conf"
+  if [ ! -f /home/pi/.config/spotifyd/spotifyd-aux.conf ]; then
+    cp src/spotifyd.conf /home/pi/.config/spotifyd/spotifyd-aux.conf
+    echo "WARNING: Update username and password in /home/pi/.config/spotifyd/spotifyd-aux.conf"
   fi
-  sudo cp etc/systemd/system/spotifyd.service /etc/systemd/system/spotifyd.service
-  sudo chown root:root /etc/systemd/system/spotifyd.service
+  if [ ! -f /home/pi/.config/spotifyd/spotifyd-surround.conf ]; then
+    cp src/spotifyd.conf /home/pi/.config/spotifyd/spotifyd-surround.conf
+    echo "WARNING: Update username and password in /home/pi/.config/spotifyd/spotifyd-surround.conf"
+  fi  
+  sudo cp etc/systemd/system/spotifyd-aux.service /etc/systemd/system/spotifyd-aux.service
+  sudo cp etc/systemd/system/spotifyd-surround.service /etc/systemd/system/spotifyd-surround.service
+  sudo chown root:root /etc/systemd/system/spotifyd-aux.service
+  sudo chown root:root /etc/systemd/system/spotifyd-surround.service
   sudo systemctl daemon-reload
-  sudo systemctl enable spotifyd
-  sudo systemctl start spotifyd
+  sudo systemctl enable spotifyd-aux
+  sudo systemctl enable spotifyd-surround
+  sudo systemctl start spotifyd-aux
+  sudo systemctl start spotifyd-surround
 }
 
 configure_httpd () {
@@ -145,6 +153,7 @@ push_config () {
     sudo cp ${f} /${f}
     sudo chown root:root /${f}
   done
+  sudo systemctl daemon-reload
 }
 
 pull_config () {
