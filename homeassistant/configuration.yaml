@@ -26,9 +26,9 @@ spotify:
   client_secret: !secret spotify_client_secret
 switch:
   - platform: mpd_outputs
-    host: raspberrypi.home
+    host: raspberrypi
   - platform: http_switch
-    host: raspberrypi.home
+    host: raspberrypi
     resources:
       projector:
         turn_on: unfold
@@ -36,7 +36,7 @@ switch:
 media_player:
   - platform: mpd
     name: Radio
-    host: raspberrypi.home
+    host: raspberrypi
 hdmi_cec:
   types:
     hdmi_cec.hdmi_5: media_player 

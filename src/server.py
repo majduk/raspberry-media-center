@@ -5,7 +5,7 @@ import traceback
 import logging
 import sys
 
-hostName = "raspberrypi.home"
+hostName = "raspberrypi"
 serverPort = 8080
 
 HANDLERS = {
