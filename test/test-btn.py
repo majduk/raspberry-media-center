@@ -40,6 +40,6 @@ class GpioHandler:
 def sample_handler(evt):
     print("Event: {}".format(evt))
 
-gpio_handler = GpioHandler(27, sample_handler)
+gpio_handler = GpioHandler(22, sample_handler)
 
 pause()
