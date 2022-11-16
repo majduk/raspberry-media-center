@@ -6,11 +6,12 @@ Raspberry Pi based home media center
 Media center is based on:
 - Raspberry Pi 4B with 8G RAM
 - HiFiBerry DAC2 Pro - [documentation](https://www.hifiberry.com/shop/boards/hifiberry-dac2-pro/)
+- Preamp audio NE5532 - [documentation](https://allegro.pl/oferta/modul-przedwzmacniacza-audio-ne5532-8626038394)
 - 3x Busch und Jaeger 8212u and 1x8211u amplifiers - [documentation](https://library.e.abb.com/public/dec74a007bb7476d8d56ac41941bf79a/8211_ABB_OA_2012-12-17_PL_R01.pdf)
 - Case from Busch und Jaeger 8201 Zentralle
 - USB 7.1 soundcard (noname) - [documentation](https://botland.com.pl/urzadzania-usb-pozostale/6706-zewnetrzna-karta-dzwiekowa-muzyczna-71-channel-usb-raspberry-pi-3-2-b-5907621811334.html?cd=1564049911&ad=58987843373&kd=&gclid=CjwKCAiAlfqOBhAeEiwAYi43F1aUwurMMdnk5BQwNF-A90l4fBGRPAa3wOJ4Y0608h8fgp_n7vqwYxoCCDEQAvD_BwE)
 
-![layout](images/layout.jpg)
+![layout](images/rpi.jpg)
 
 ### Power sources
 
@@ -34,8 +35,16 @@ Due to different voltage expectations I had to use 3 different power sources wit
 |                              |    |    15V      |      |
 +------------------------------+    |             |      |
                                     |             |      |
-+-----------+   +--------------+    |             |      |
-|           |   |  G           |    +-------------+      |
+                +--------------+    |             |      |
+                |              |    |             |      |
+                |              |<---+             |      |
+                |    NE5532    |    |             |      |
+                |    PreAmp    |    |             |      |
+                |              |    +-------------+      |
+                +--------------+                         |
+                                                         |
++-----------+   +--------------+                         |
+|           |   |  G           |                         |
 |           |   |  P           |                         |
 | HiFiBerry |<--+- I           |    +-------------+      |
 | DAC2 PRO  |   |  O           |    |             |      |
@@ -80,7 +89,7 @@ The RJ45 should be connected as below - consult bus color scheme:
 
 Comments
 - FM commected to HiFiBerry
-- AUX connetected to internal Raspberry sound card and headphones output. This results in rather low output level and low quality. Potential improvement is to use pre-amplifier. The B&J system has an unbalanced input and this kind of preamplifier is reqiored. 
+- AUX connetected via PreAmp to internal Raspberry sound card and headphones output.  
 - D pin is used by the external amplifiers to send PROG signal to change the current playing radio station. This is via voltage divider (10k/18kOhm) to GPIO22 to encompass a fact that B&J uses 5V logic and RPi GPIO is 3.3V.
 - Power supply
   - B&J uses built in 15V power supply from the 8201 unit
