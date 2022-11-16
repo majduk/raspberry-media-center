@@ -20,7 +20,7 @@ class MockDriver:
         with open(STATE_FILE, "w") as f:
                 self._logger.info("Driver: Unfolding")
                 f.write("RUNNING")
-                sleep(53)
+                sleep(51)
                 f.seek(0)
                 f.truncate()
                 f.write("UNFOLDED")
