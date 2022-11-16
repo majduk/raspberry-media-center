@@ -4,4 +4,5 @@ homeassistant/.HA_VERSION
 homeassistant/.storage/
 homeassistant/*.log*
 homeassistant/home-assistant_v2.db*
+homeassistant/zigbee.db*
 secrets.yaml

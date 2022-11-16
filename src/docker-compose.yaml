@@ -1,0 +1,16 @@
+version: '3'
+services:
+  homeassistant:
+    container_name: home-assistant
+    image: homeassistant/home-assistant:stable
+    volumes:
+    # - /home/pi/raspberry-media-center/homeassistant:/config
+      - /home/majduk/Dokumenty/repos/raspberry-media-center/homeassistant:/config
+      - /etc/localtime:/etc/localtime:ro
+      - /dev/serial/by-id:/dev/serial/by-id
+    devices:
+      - /dev/ttyACM0:/dev/ttyACM0
+    environment:
+      - TZ=America/Los_Angeles
+    restart: always
+    network_mode: host
