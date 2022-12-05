@@ -48,7 +48,7 @@ class GPIODriver:
                 start.on()
                 sleep(0.1)
                 start.off()
-                sleep(53)
+                sleep(50)
                 stop.on()
                 sleep(0.1)
                 stop.off()

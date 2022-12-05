@@ -1,1 +1,55 @@
-[]
+- id: '1668087871258'
+  alias: Switch on HDMI Surround on radio output
+  trigger:
+  - platform: state
+    entity_id: switch.surround
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id:
+    - media_player.hdmi_5
+    state: 'off'
+  action:
+  - service: hdmi_cec.send_command
+    data:
+      raw: f5:44:6d
+- id: '1668087871259'
+  alias: Switch on HDMI Surround on Spotify
+  trigger:
+  - platform: state
+    entity_id: media_player.spotify_michal
+    from: idle
+    to: playing
+  condition:
+  - condition: state
+    entity_id:
+    - media_player.hdmi_5
+    state: 'off'
+  action:
+  - service: hdmi_cec.send_command
+    data:
+      raw: f5:44:6d
+- id: '1668087871260'
+  alias: Sync salon temperature
+  trigger:
+    - platform: time_pattern
+      minutes: "/12"
+  action:
+    - service: number.set_value
+      target:
+        entity_id: number.salon_temperature_calibration
+      data: 
+        value: "{{ (float(states('sensor.lumi_lumi_airmonitor_acn01_38574400_temperature')) - float(state_attr('climate.salon', 'current_temperature')) + float(states('number.salon_temperature_calibration')))  }}"
+- id: '1668087871261'
+  alias: Sync sypialnia temperature
+  trigger:
+    - platform: time_pattern
+      minutes: "/12"
+  action:
+    - service: number.set_value
+      target:
+        entity_id: number.sypialnia_temperature_calibration
+      data: 
+        value: "{{ (float(states('sensor.temperature')) - float(state_attr('climate.sypialnia', 'current_temperature')) + float(states('number.sypialnia_temperature_calibration')))  }}"
+

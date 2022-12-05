@@ -7,7 +7,7 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
-ExecStart=ip netns exec sp1 /home/pi/raspberry-media-center/work/spotifyd --no-daemon --config-path /home/pi/.config/spotifyd/spotifyd-aux.conf
+ExecStart=nsenter --net=/var/run/netns/sp1 --uts=/tmp/ns-sp1 /home/pi/raspberry-media-center/work/spotifyd --no-daemon --config-path /home/pi/.config/spotifyd/spotifyd-aux.conf
 Restart=always
 RestartSec=12
 
