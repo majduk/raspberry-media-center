@@ -30,26 +30,70 @@
   - service: hdmi_cec.send_command
     data:
       raw: f5:44:6d
-- id: '1668087871260'
-  alias: Sync salon temperature
+- id: '1668087871262'
+  alias: Start home theather
   trigger:
-    - platform: time_pattern
-      minutes: "/12"
+  - platform: state
+    entity_id: switch.optoma_uhd
+    from: 'off'
+    to: 'on'
   action:
-    - service: number.set_value
-      target:
-        entity_id: number.salon_temperature_calibration
-      data: 
-        value: "{{ (float(states('sensor.lumi_lumi_airmonitor_acn01_38574400_temperature')) - float(state_attr('climate.salon', 'current_temperature')) + float(states('number.salon_temperature_calibration')))  }}"
-- id: '1668087871261'
-  alias: Sync sypialnia temperature
+  - service: hdmi_cec.send_command
+    data:
+      raw: f5:44:6d
+  - service: switch.turn_on
+    target:
+      entity_id:
+      - switch.projector
+- id: '1668087871263'
+  alias: Stop home theather
   trigger:
-    - platform: time_pattern
-      minutes: "/12"
+  - platform: state
+    entity_id: switch.optoma_uhd
+    from: 'on'
+    to: 'off'
   action:
-    - service: number.set_value
-      target:
-        entity_id: number.sypialnia_temperature_calibration
-      data: 
-        value: "{{ (float(states('sensor.temperature')) - float(state_attr('climate.sypialnia', 'current_temperature')) + float(states('number.sypialnia_temperature_calibration')))  }}"
-
+  - service: switch.turn_off
+    target:
+      entity_id:
+      - switch.projector
+- id: '1704009986206'
+  alias: Kalibracja grzejnika - Salon
+  description: ''
+  use_blueprint:
+    path: homeassistant/calibrate_thermostat.yaml
+    input:
+      calibration_target: number.trv_livingroom_local_temperature_calibration
+      temperature_sensor: sensor.ths_aquara_temperature
+      thermostat_sensor: sensor.trv_livingroom_local_temperature
+      time_pattern_minutes: /24
+- id: '1704009986207'
+  alias: Kalibracja grzejnika - Gabinet
+  description: ''
+  use_blueprint:
+    path: homeassistant/calibrate_thermostat.yaml
+    input:
+      calibration_target: number.trv_office_local_temperature_calibration
+      temperature_sensor: sensor.ths_tuya_temperature
+      thermostat_sensor: sensor.trv_office_local_temperature
+      time_pattern_minutes: /24
+- id: '1704009986208'
+  alias: Kalibracja grzejnika - Sypialnia
+  description: ''
+  use_blueprint:
+    path: homeassistant/calibrate_thermostat.yaml
+    input:
+      calibration_target: number.0x04cd15fffe3b802d_local_temperature_calibration
+      temperature_sensor: sensor.ths_nous_temperature
+      thermostat_sensor: sensor.trv_bedroom_local_temperature
+      time_pattern_minutes: /24
+- id: '1704009986209'
+  alias: Kalibracja grzejnika - Pokoj dzieciecy
+  description: ''
+  use_blueprint:
+    path: homeassistant/calibrate_thermostat.yaml
+    input:
+      calibration_target: number.trv_children_local_temperature_calibration
+      temperature_sensor: sensor.ths_ikea_temperature
+      thermostat_sensor: sensor.trv_children_local_temperature
+      time_pattern_minutes: /24

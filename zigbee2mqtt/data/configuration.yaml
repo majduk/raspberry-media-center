@@ -1,0 +1,46 @@
+homeassistant:
+  legacy_entity_attributes: true
+  legacy_triggers: true
+permit_join: false
+frontend: false
+#  port: 9080
+#  host: 0.0.0.0
+mqtt:
+  base_topic: zigbee2mqtt
+  server: mqtt://localhost
+  user: '!secret.yaml user'
+  password: '!secret.yaml password'
+serial:
+  port: /dev/ttyACM0
+advanced:
+  homeassistant_legacy_entity_attributes: false
+  legacy_api: false
+  legacy_availability_payload: false
+  log_directory: /app/data/log/
+  log_file: '%TIMESTAMP%.txt'
+  log_level: debug
+  log_rotation: false
+  log_output:
+    - console
+  last_seen: ISO_8601_local
+device_options:
+  legacy: false
+devices:
+  '0x84ba20fffe2a44e3':
+    friendly_name: trv_livingroom
+  '0x003c84fffed321e9':
+    friendly_name: trv_kitchen
+  '0x003c84fffe058cc8':
+    friendly_name: trv_office
+  '0x8cf681fffebfe4d1':
+    friendly_name: trv_children
+  '0x54ef441000445738':
+    friendly_name: ths_aquara
+  '0x5c0272fffe037f08':
+    friendly_name: ths_tuya
+  '0xa4c138e524e9170c':
+    friendly_name: ths_nous
+  '0x287681fffe6fc386':
+    friendly_name: ths_ikea
+  '0x04cd15fffe3b802d':
+    friendly_name: trv_bedroom

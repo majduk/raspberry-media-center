@@ -14,11 +14,12 @@ logger:
     homeassistant.components.hdmi_cec.media_player: warning
     homeassistant.components.hdmi_cec: warning
     homeassistant.components: warning
-    homeassistant.components.tuya: debug
-    homeassistant.components.zha: debug
-    tuya_iot: debug
-    pycec: debug
-    pycec.cec: debug
+    homeassistant.components.tuya: warning
+    homeassistant.components.zha: warning
+    homeassistant.components.mqtt: debug
+    tuya_iot: warning
+    pycec: warning
+    pycec.cec: warning
 
 group: !include groups.yaml
 automation: !include automations.yaml
@@ -44,3 +45,97 @@ hdmi_cec:
     0: TV
     5: Receiver
     8: BD-Theater
+mqtt:
+  sensor:
+    - name: "trv_office_local_temperature"
+      unique_id: "trv_office_local_temperature"
+      state_topic: "zigbee2mqtt/trv_office"
+      state_class: measurement
+      device_class: temperature
+      unit_of_measurement: '°C'
+      value_template: '{{ value_json.local_temperature|float }}'
+    - name: "trv_livingroom_local_temperature"
+      unique_id: "trv_livingroom_local_temperature"
+      state_topic: "zigbee2mqtt/trv_livingroom"
+      state_class: measurement
+      device_class: temperature
+      unit_of_measurement: '°C'
+      value_template: '{{ value_json.local_temperature|float }}'
+    - name: "trv_kitchen_local_temperature"
+      unique_id: "trv_kitchen_local_temperature"
+      state_topic: "zigbee2mqtt/trv_kitchen"
+      state_class: measurement
+      device_class: temperature
+      unit_of_measurement: '°C'
+      value_template: '{{ value_json.local_temperature|float }}'
+    - name: "trv_bedroom_local_temperature"
+      unique_id: "trv_bedroom_local_temperature"
+      state_topic: "zigbee2mqtt/trv_bedroom"
+      state_class: measurement
+      device_class: temperature
+      unit_of_measurement: '°C'
+      value_template: '{{ value_json.local_temperature|float }}'
+    - name: "trv_children_local_temperature"
+      unique_id: "trv_children_local_temperature"
+      state_topic: "zigbee2mqtt/trv_children"
+      state_class: measurement
+      device_class: temperature
+      unit_of_measurement: '°C'
+      value_template: '{{ value_json.local_temperature|float }}'
+  number:
+    - name: "trv_office_current_heating_setpoint"
+      unique_id: "trv_office_current_heating_setpoint"
+      state_topic: "zigbee2mqtt/trv_office"
+      command_topic: "zigbee2mqtt/trv_office/set/current_heating_setpoint"
+      device_class: temperature
+      unit_of_measurement: '°C'
+      value_template: '{{ value_json.current_heating_setpoint|float }}'
+      min: 5
+      max: 25
+      step: 0.5
+      icon: mdi:temperature-celsius
+    - name: "trv_livingroom_current_heating_setpoint"
+      unique_id: "trv_livingroom_current_heating_setpoint"
+      state_topic: "zigbee2mqtt/trv_livingroom"
+      command_topic: "zigbee2mqtt/trv_livingroom/set/current_heating_setpoint"
+      device_class: temperature
+      unit_of_measurement: '°C'
+      value_template: '{{ value_json.current_heating_setpoint|float }}'
+      min: 5
+      max: 25
+      step: 0.5
+      icon: mdi:temperature-celsius
+    - name: "trv_kitchen_current_heating_setpoint"
+      unique_id: "trv_kitchen_current_heating_setpoint"
+      state_topic: "zigbee2mqtt/trv_kitchen"
+      command_topic: "zigbee2mqtt/trv_kitchen/set/current_heating_setpoint"
+      device_class: temperature
+      unit_of_measurement: '°C'
+      value_template: '{{ value_json.current_heating_setpoint|float }}'
+      min: 5
+      max: 25
+      step: 0.5
+      icon: mdi:temperature-celsius
+    - name: "trv_bedroom_current_heating_setpoint"
+      unique_id: "trv_bedroom_current_heating_setpoint"
+      state_topic: "zigbee2mqtt/trv_bedroom"
+      command_topic: "zigbee2mqtt/trv_bedroom/set/current_heating_setpoint"
+      device_class: temperature
+      unit_of_measurement: '°C'
+      value_template: '{{ value_json.current_heating_setpoint|float }}'
+      min: 5
+      max: 25
+      step: 0.5
+      icon: mdi:temperature-celsius
+    - name: "trv_children_current_heating_setpoint"
+      unique_id: "trv_children_current_heating_setpoint"
+      state_topic: "zigbee2mqtt/trv_children"
+      command_topic: "zigbee2mqtt/trv_children/set/current_heating_setpoint"
+      device_class: temperature
+      unit_of_measurement: '°C'
+      value_template: '{{ value_json.current_heating_setpoint|float }}'
+      min: 5
+      max: 25
+      step: 0.5
+      icon: mdi:temperature-celsius
+

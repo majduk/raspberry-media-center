@@ -1,4 +1,5 @@
 {
     "iptables": false,
-    "bridge": "none"
+    "bridge": "none",
+    "log-driver": "journald"
 }

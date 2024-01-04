@@ -1,0 +1,66 @@
+blueprint:
+  name: Calibrate Thermostat
+  description: Calibrate the TS0601 rediator thermostat using external source.
+  domain: automation
+  input:
+    calibration_target:
+      name: Thermostat Calibration Target
+      selector:
+        entity:
+          multiple: false
+          domain: number
+          device_class: temperature
+    temperature_sensor:
+      name: External Temperature Sensor
+      selector:
+        entity:
+          multiple: false
+          domain: sensor
+          device_class: temperature
+    thermostat_sensor:
+      name: Internal Thermostat Temperature Sensor
+      selector:
+          entity:
+            multiple: false
+            domain: sensor
+            device_class: temperature
+    time_pattern_minutes:
+      name: Calibration frequency
+      description: Calibration trigger minutes time pattern 
+      default: "/12"
+
+mode: restart
+max_exceeded: silent
+
+
+variables:
+  temperature_sensor: !input temperature_sensor
+  thermostat_sensor:  !input thermostat_sensor
+  calibration_target: !input calibration_target
+
+trigger:
+  platform: time_pattern
+  minutes: !input time_pattern_minutes
+
+action:
+  - alias: "Read Temperature Sensor"
+    service: logbook.log
+    data:
+      name: 'temperature_sensor:{{ temperature_sensor }}'
+      message: 'state: {{ states(temperature_sensor) }}'
+  - alias: "Read Thermostat Sensor"
+    service: logbook.log
+    data:
+      name: 'thermostat_sensor:{{ thermostat_sensor }}'
+      message: 'state: {{ states(thermostat_sensor) }}'
+  - alias: "Read Thermostat Calibration"
+    service: logbook.log
+    data:
+      name: 'calibration_target:{{ calibration_target }}'
+      message: 'state: {{ states(calibration_target) }}'
+  - alias: "Set Temperature Calibration"
+    service: number.set_value
+    target:
+      entity_id: '{{ calibration_target }}'
+    data:
+      value: '{{ float(states(temperature_sensor)) - float(states(thermostat_sensor)) + float(states(calibration_target))  }}'
